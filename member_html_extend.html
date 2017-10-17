@@ -1,0 +1,72 @@
+---
+
+### 會員中心 html 擴展功能
+
+會員中心的 html 跟 react 那段不一樣，react 只有一個頁面，剩下的交給 react-router 去處理，但是會員中心並沒有使用 react，所以一個頁面就有一個 html，這會造成維護上的困難，所以我們選擇使用 [gulp-html-extend](https://github.com/FrankFang/gulp-html-extend) 來處理這個問題。    
+
+節錄開發者文件中的用法：
+
+master.html
+
+```html
+<body>
+    <!-- @@placeholder= content -->
+    <!-- @@placeholder =footer -->
+</body>
+```
+
+content.html
+
+```html
+<!-- @@master  = master.html-->
+
+<!-- @@block  =  content-->
+<main>
+    my content
+</main>
+<!-- @@close-->
+
+<!-- @@block  =  footer-->
+<footer>
+    my footer
+</footer>
+<!-- @@close-->
+
+```
+
+output
+
+```html
+<body>
+
+<!-- start content -->
+<main>
+    my content
+</main>
+<!-- end content -->
+
+<!-- start footer -->
+<footer>
+    my footer
+</footer>
+<!-- end footer -->
+
+</body>
+```
+
+html 的部分依照上面的方式寫好之後只要執行下面的 gulp 指令：
+
+```
+gulp extend
+```
+
+就會在 `/dist/member/` 產生對應的 html 了，  
+開發中的話可以利用 watch 機制協助開發：
+
+```
+gulp watch
+```
+
+不過上面這些動作在你執行 `npm start` 或 `npm build` 的時候都會處理，所以基本上你是不需要去執行 gulp 的相關指令的。
+
+---
